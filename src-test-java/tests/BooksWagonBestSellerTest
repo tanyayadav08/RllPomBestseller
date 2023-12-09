@@ -1,0 +1,42 @@
+package tests;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import pages.BookswagonHomePage;
+import pages.BestSellersPage;
+
+public class BooksWagonBestSellerTest {
+    private WebDriver driver;
+    private BookswagonHomePage homePage;
+    private BestSellersPage bestSellersPage;
+
+    @BeforeClass
+    public void setup() {
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        homePage = new BookswagonHomePage(driver);
+        bestSellersPage = new BestSellersPage(driver);
+    }
+
+    @Test
+    public void testBestSellerFlow() throws InterruptedException {
+        driver.get("https://www.bookswagon.com/");
+        Thread.sleep(2000);
+        
+        homePage.navigateToBestSellers();
+        
+        // Add additional steps for navigating through the pages and performing actions
+        bestSellersPage.selectBook();
+        
+        // Add more test steps as needed
+    }
+
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
+    }
+}
