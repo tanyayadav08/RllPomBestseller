@@ -1,0 +1,18 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class BestSellersPage {
+    private final WebDriver driver;
+
+    public BestSellersPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void selectBook() {
+        driver.findElement(By.xpath("/html/body/form/div[10]/div[1]/div[3]/div[2]/div[2]/div[1]/div/a/img")).click();
+    }
+    
+    
+}
