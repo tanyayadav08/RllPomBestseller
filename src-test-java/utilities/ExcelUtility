@@ -1,0 +1,42 @@
+package utilities;
+
+import org.apache.poi.ss.usermodel.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class ExcelUtility {
+    private String filePath;
+
+    public ExcelUtility(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String readData(String sheetName, int rowNum, int colNum) {
+        String data = null;
+        try (FileInputStream fis = new FileInputStream(filePath);
+             Workbook workbook = WorkbookFactory.create(fis)) {
+            Sheet sheet = workbook.getSheet(sheetName);
+            Row row = sheet.getRow(rowNum);
+            Cell cell = row.getCell(colNum);
+            data = cell.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public void writeData(String sheetName, int rowNum, int colNum, String data) {
+        try (FileInputStream fis = new FileInputStream(filePath);
+             Workbook workbook = WorkbookFactory.create(fis);
+             FileOutputStream fos = new FileOutputStream(filePath)) {
+            Sheet sheet = workbook.getSheet(sheetName);
+            Row row = sheet.getRow(rowNum);
+            Cell cell = row.createCell(colNum);
+            cell.setCellValue(data);
+            workbook.write(fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
